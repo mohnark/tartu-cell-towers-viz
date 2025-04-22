@@ -4,7 +4,7 @@ import { GeoJsonLayer, ScatterplotLayer } from '@deck.gl/layers';
 import { WebMercatorViewport } from '@deck.gl/core';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import {DeckGLOverlay} from "./utils.js";
-import {BASEURL, TARTU_CELL_TOWERS, TARTU_CITY_DISTRICTS} from "../constants.js";
+import {TARTU_CELL_TOWERS, TARTU_CITY_DISTRICTS} from "../constants.js";
 
 const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
 const DISTRICTS_URL = TARTU_CITY_DISTRICTS;
