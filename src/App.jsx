@@ -7,12 +7,13 @@ import Footer from "./components/Footer";
 import BasicMap from "./components/BasicMap";
 import ChoroplethMap from "./components/ChoroplethMap";
 import Heatmap from "./components/HeatMap";
+import {BASEURL} from "./constants.js";
 
 export default function App() {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <Router basename={'tartu-cell-towers-viz/'}>
+            <Router basename={BASEURL}>
                 <Navbar />
                 <Routes>
                     <Route path="/" element={<Navigate to="/basic" replace />} />

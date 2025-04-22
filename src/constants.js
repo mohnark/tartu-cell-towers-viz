@@ -1,0 +1,1 @@
+export const BASEURL='tartu-cell-towers-viz/'
