@@ -12,7 +12,7 @@ export default function App() {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <Router>
+            <Router basename={'tartu-cell-towers-viz/'}>
                 <Navbar />
                 <Routes>
                     <Route path="/" element={<Navigate to="/basic" replace />} />
