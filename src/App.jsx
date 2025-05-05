@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { HashRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider, CssBaseline } from "@mui/material";
 import theme from "./theme";
 
@@ -13,7 +13,7 @@ export default function App() {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <Router basename={BASEURL}>
+g            <Router basename={BASEURL}>
                 <Navbar />
                 <Routes>
                     <Route path="/" element={<Navigate to="/basic" replace />} />
