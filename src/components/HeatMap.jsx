@@ -127,10 +127,10 @@ export default function HeatMap() {
         );
     }, [cellTowers]);
 
-    if (!cellTowers) return <div>Loading towers…</div>;
+    if (!cellTowers) return <div style={{position:'relative', width:'100%', height:'85vh'}}>Loading towers…</div>;
 
     return (
-        <div style={{position:'relative', width:'100%', height:'85vh'}}>
+        <div style={{position: 'relative', width:'100%', height:'85vh'}}>
             <Map
                 ref={mapRef}
                 mapboxAccessToken={MAPBOX_TOKEN}

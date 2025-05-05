@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { HashRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider, CssBaseline } from "@mui/material";
 import theme from "./theme";
 
@@ -7,13 +7,12 @@ import Footer from "./components/Footer";
 import BasicMap from "./components/BasicMap";
 import ChoroplethMap from "./components/ChoroplethMap";
 import Heatmap from "./components/HeatMap";
-import {BASEURL} from "./constants.js";
 
 export default function App() {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <Router basename={BASEURL}>
+            <Router>
                 <Navbar />
                 <Routes>
                     <Route path="/" element={<Navigate to="/basic" replace />} />
