@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="refresh" content="0; URL=/" />
     <script>
-        const redirectTo = "/" + location.pathname.split("/").slice(2).join("/");
+        const redirectTo = "/tartu-cell-towers-viz/" + location.pathname.split("/").slice(2).join("/");
         window.location.replace(`${location.origin}${location.pathname.includes("index.html") ? "" : redirectTo}`);
     </script>
 </head>
