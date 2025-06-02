@@ -2,8 +2,15 @@ import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { TARTU_CELL_TOWERS, TARTU_CITY_DISTRICTS } from '../constants';
+import { IconButton, Tooltip } from '@mui/material';
+import { Home } from '@mui/icons-material';
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
+
+const DEFAULT_VIEW = {
+    center: [26.76, 58.35],
+    zoom: 10
+};
 
 export default function BasicMap() {
     const mapContainer = useRef(null);
@@ -189,6 +196,14 @@ export default function BasicMap() {
         }
     }, [showCellTowers]);
 
+    const handleResetView = () => {
+        mapRef.current.flyTo({
+            center: DEFAULT_VIEW.center,
+            zoom: DEFAULT_VIEW.zoom,
+            duration: 1000
+        });
+    };
+
     return (
         <div style={{ position: 'relative', height: '85vh' }}>
             <div ref={mapContainer} style={{ width: '100%', height: '100%' }} />
@@ -200,6 +215,27 @@ export default function BasicMap() {
                     <input type="checkbox" checked={showCellTowers} onChange={() => setShowCellTowers(!showCellTowers)} /> Cell Towers
                 </label>
             </div>
+            <Tooltip title="Reset to Default View">
+                <IconButton
+                    onClick={handleResetView}
+                    sx={{
+                        position: 'absolute',
+                        top: 10,
+                        left: 72,
+                        bgcolor: 'white',
+                        boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+                        '&:hover': { 
+                            bgcolor: 'white',
+                            boxShadow: '0 4px 8px rgba(0,0,0,0.3)'
+                        },
+                        width: 40,
+                        height: 40,
+                        zIndex: 1
+                    }}
+                >
+                    <Home sx={{ color: '#333' }} />
+                </IconButton>
+            </Tooltip>
         </div>
     );
 }

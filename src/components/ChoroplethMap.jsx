@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {Map, Source, Layer, NavigationControl, Popup} from 'react-map-gl';
-import {Box} from '@mui/material';
+import {Box, IconButton, Tooltip} from '@mui/material';
+import {Home} from '@mui/icons-material';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import {TARTU_CITY_DISTRICTS} from '../constants.js';
 
@@ -9,6 +10,11 @@ const COLOR_PALETTE = [
     '#f2f0f7', '#dadaeb', '#bcbddc', '#9e9ac8',
     '#807dba', '#6a51a3', '#54278f', '#3f007d'
 ];
+const DEFAULT_VIEW = {
+    longitude: 26.72,
+    latitude: 58.38,
+    zoom: 11
+};
 
 export default function ChoroplethMap() {
     const mapRef = useRef();
@@ -44,6 +50,14 @@ export default function ChoroplethMap() {
             })();
         mapRef.current.fitBounds(bbox, {padding: 20, duration: 0});
     }, [mapLoaded, districts]);
+
+    const handleResetView = () => {
+        mapRef.current.flyTo({
+            center: [DEFAULT_VIEW.longitude, DEFAULT_VIEW.latitude],
+            zoom: DEFAULT_VIEW.zoom,
+            duration: 1000
+        });
+    };
 
     if (!districts) {
         return (
@@ -122,7 +136,7 @@ export default function ChoroplethMap() {
                 mapStyle="mapbox://styles/mapbox/dark-v11"
                 interactiveLayerIds={['district-fill']}
                 style={{width: '100%', height: '100%'}}
-                initialViewState={{longitude: 26.72, latitude: 58.38, zoom: 11}}
+                initialViewState={DEFAULT_VIEW}
                 onLoad={() => setMapLoaded(true)}
                 onClick={e => {
                     const f = e.features && e.features[0];
@@ -132,6 +146,27 @@ export default function ChoroplethMap() {
                 }}
             >
                 <NavigationControl position="top-left" />
+                <Tooltip title="Reset to Default View">
+                    <IconButton
+                        onClick={handleResetView}
+                        sx={{
+                            position: 'absolute',
+                            top: 10,
+                            left: 72,
+                            bgcolor: 'white',
+                            boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+                            '&:hover': { 
+                                bgcolor: 'white',
+                                boxShadow: '0 4px 8px rgba(0,0,0,0.3)'
+                            },
+                            width: 40,
+                            height: 40,
+                            zIndex: 1
+                        }}
+                    >
+                        <Home sx={{ color: '#333' }} />
+                    </IconButton>
+                </Tooltip>
 
                 <Source id="districts" type="geojson" data={districts}>
                     <Layer {...fillLayer} />

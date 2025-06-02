@@ -1,8 +1,16 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {Map, Source, Layer, NavigationControl} from 'react-map-gl';
+import {IconButton, Tooltip} from '@mui/material';
+import {Home} from '@mui/icons-material';
 import {TARTU_CELL_TOWERS} from "../constants.js";
 
 const MAPBOX_TOKEN =  import.meta.env.VITE_MAPBOX_TOKEN;
+const DEFAULT_VIEW = {
+    longitude: 26.76,
+    latitude: 58.35,
+    zoom: 10
+};
+
 const heatmapLayer = {
     id: 'cell-tower-heat',
     type: 'heatmap',
@@ -127,6 +135,14 @@ export default function HeatMap() {
         );
     }, [cellTowers]);
 
+    const handleResetView = () => {
+        mapRef.current.flyTo({
+            center: [DEFAULT_VIEW.longitude, DEFAULT_VIEW.latitude],
+            zoom: DEFAULT_VIEW.zoom,
+            duration: 1000
+        });
+    };
+
     if (!cellTowers) return <div style={{position:'relative', width:'100%', height:'85vh'}}>Loading towers…</div>;
 
     return (
@@ -134,12 +150,33 @@ export default function HeatMap() {
             <Map
                 ref={mapRef}
                 mapboxAccessToken={MAPBOX_TOKEN}
-                initialViewState={{longitude:26.76, latitude:58.35, zoom:10}}
+                initialViewState={DEFAULT_VIEW}
                 maxZoom={14}
                 mapStyle="mapbox://styles/mapbox/dark-v11"
                 style={{width:'100%', height:'100%'}}
             >
                 <NavigationControl position="top-left" />
+                <Tooltip title="Reset to Default View">
+                    <IconButton
+                        onClick={handleResetView}
+                        sx={{
+                            position: 'absolute',
+                            top: 10,
+                            left: 72,
+                            bgcolor: 'white',
+                            boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+                            '&:hover': { 
+                                bgcolor: 'white',
+                                boxShadow: '0 4px 8px rgba(0,0,0,0.3)'
+                            },
+                            width: 40,
+                            height: 40,
+                            zIndex: 1
+                        }}
+                    >
+                        <Home sx={{ color: '#333' }} />
+                    </IconButton>
+                </Tooltip>
 
                 <Source id="cellTowers" type="geojson" data={cellTowers}>
                     <Layer {...heatmapLayer} />

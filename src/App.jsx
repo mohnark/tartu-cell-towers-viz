@@ -7,6 +7,7 @@ import Footer from "./components/Footer";
 import BasicMap from "./components/BasicMap";
 import ChoroplethMap from "./components/ChoroplethMap";
 import Heatmap from "./components/HeatMap";
+import AdvancedMap from "./components/AdvancedMap";
 
 export default function App() {
     return (
@@ -19,6 +20,7 @@ export default function App() {
                     <Route path="/basic" element={<BasicMap />} />
                     <Route path="/choropleth" element={<ChoroplethMap />} />
                     <Route path="/heatmap" element={<Heatmap />} />
+                    <Route path="/advanced" element={<AdvancedMap />} />
                 </Routes>
                 <Footer />
             </Router>
